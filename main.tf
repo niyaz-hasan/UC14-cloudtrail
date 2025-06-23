@@ -13,7 +13,7 @@ module "sns" {
 module "cloudtrail" {
   source                = "./modules/cloudtrail"
   s3_bucket_name        = module.S3.cloudtrail_s3_bucket_arn
-  cloudwatch_log_group  = module.cloudwatch.cloudwatch_log_group_arn
+  cloudwatch_log_group_arn  = module.cloudwatch.cloudwatch_log_group_arn
 }
 
 module "cloudwatch" {
