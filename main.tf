@@ -23,6 +23,3 @@ module "cloudwatch" {
   log_group_name = var.cloudwatch_log_group
 }
 
-output "sns_topic_arn" {
-  value = module.sns.sns_topic_arn
-}
