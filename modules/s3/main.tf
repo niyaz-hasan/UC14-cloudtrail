@@ -6,30 +6,44 @@ resource "aws_s3_bucket" "cloudtrail_logs" {
   }
 }
 
-
 resource "random_pet" "this" {
   length = 2
 }
 
-resource "aws_s3_bucket_object" "cloudtrail_logs_policy" {
+resource "aws_s3_bucket_policy" "cloudtrail_bucket_policy" {
   bucket = aws_s3_bucket.cloudtrail_logs.bucket
-  key    = "cloudtrail-logs-policy.json"
-  acl    = "private"
-  content = jsonencode({
+
+  policy = jsonencode({
     Version = "2012-10-17"
     Statement = [
       {
-        Effect   = "Allow"
-        Action   = "s3:PutObject"
-        Resource = "${aws_s3_bucket.cloudtrail_logs.arn}/*"
+        Sid    = "AWSCloudTrailAclCheck"
+        Effect = "Allow"
         Principal = {
           Service = "cloudtrail.amazonaws.com"
+        }
+        Action   = "s3:GetBucketAcl"
+        Resource = "${aws_s3_bucket.cloudtrail_logs.arn}/*"
+      },
+      {
+        Sid    = "AWSCloudTrailWrite"
+        Effect = "Allow"
+        Principal = {
+          Service = "cloudtrail.amazonaws.com"
+        }
+        Action   = "s3:PutObject"
+        Resource = "${aws_s3_bucket.cloudtrail_logs.arn}/*"
+        Condition = {
+          StringEquals = {
+            "s3:x-amz-acl" = "bucket-owner-full-control"
+          }
         }
       }
     ]
   })
 }
 
+
 output "depends_on_s3_bucket_object" {
-  value = aws_s3_bucket_object.cloudtrail_logs_policy
+  value = aws_s3_bucket_object.cloudtrail_bucket_policy
 }

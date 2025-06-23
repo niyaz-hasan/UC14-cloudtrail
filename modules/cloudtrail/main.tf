@@ -11,6 +11,7 @@ resource "aws_cloudtrail" "this" {
     var.depends_on_cloudwatch_log_group,
     var.depends_on_s3_bucket_object,
     aws_iam_role_policy_attachment.attach_policy
+    aws_iam_role_policy_attachment.attach_cloudtrail_policy
   ]
 }
 
