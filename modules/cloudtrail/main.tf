@@ -26,7 +26,28 @@ resource "aws_iam_role" "cloudtrail_log_role" {
   })
 }
 
+resource "aws_iam_role_policy" "cloudtrail_policy" {
+  name = "cloudtrail-logs"
 
+  policy = jsonencode({
+    Version = "2012-10-17",
+    Statement = [
+      {
+        Effect = "Allow",
+        Action = [
+          "logs:CreateLogStream",
+          "logs:PutLogEvents"
+        ],
+        Resource = "*"
+      }
+    ]
+  })
+}
+
+resource "aws_iam_role_policy_attachment" "attach_policy" {
+  role       = aws_iam_role.cloudtrail_log_role.name
+  policy_arn = aws_iam_policy.cloudtrail_policy.arn
+}
 
 output "cloudtrail_log_role_arn" {
   value = aws_iam_role.cloudtrail_log_role.arn
