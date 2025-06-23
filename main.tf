@@ -10,15 +10,17 @@ module "sns" {
   sns_topic_name   = var.sns_topic_name
 }
 
+module "cloudwatch" {
+  source = "./modules/cloudwatch"
+  sns_topic_arn = module.sns.sns_topic_arn
+  log_group_name = var.cloudwatch_log_group
+}
+
+
 module "cloudtrail" {
   source                = "./modules/cloudtrail"
   s3_bucket_name        = module.S3.cloudtrail_s3_bucket_arn
   cloudwatch_log_group_arn  = module.cloudwatch.cloudwatch_log_group_arn
 }
 
-module "cloudwatch" {
-  source = "./modules/cloudwatch"
-  sns_topic_arn = module.sns.sns_topic_arn
-  log_group_name = var.cloudwatch_log_group
-}
 
