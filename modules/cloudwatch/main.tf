@@ -22,5 +22,5 @@ resource "aws_cloudwatch_metric_alarm" "console_login_alarm" {
   threshold           = 1
   comparison_operator = "GreaterThanOrEqualToThreshold"
   evaluation_periods  = 1
-  alarm_actions       = var.sns_topic_arn
+  alarm_actions       = [var.sns_topic_arn]
 }
