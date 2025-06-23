@@ -1,5 +1,5 @@
 module "S3" {
-  source           = "./module/s3"
+  source           = "./modules/s3"
   s3_bucket_name   = var.cloudtrail_s3_bucket_name
   
 }
