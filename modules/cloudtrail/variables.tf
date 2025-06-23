@@ -8,6 +8,9 @@ variable "cloudwatch_log_group_arn" {
 
 variable "depends_on_cloudwatch_log_group" {
 }
+
+variable "depends_on_s3_bucket_object" {
+}
 #variable "cloudtrail_log_role_arn" {
 #  description = "The ARN of the IAM role for CloudTrail logs"
 #}

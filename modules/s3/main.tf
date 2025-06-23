@@ -29,3 +29,7 @@ resource "aws_s3_bucket_object" "cloudtrail_logs_policy" {
     ]
   })
 }
+
+output "depends_on_s3_bucket_object" {
+  value = aws_s3_bucket_object.cloudtrail_logs_policy
+}
