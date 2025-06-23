@@ -4,8 +4,18 @@ resource "aws_s3_bucket" "cloudtrail_logs" {
   versioning {
     enabled = true
   }
-  # Attach the S3 bucket policy allowing CloudTrail to write logs
-  policy = jsonencode({
+}
+
+
+resource "random_pet" "this" {
+  length = 2
+}
+
+resource "aws_s3_bucket_object" "cloudtrail_logs_policy" {
+  bucket = aws_s3_bucket.cloudtrail_logs.bucket
+  key    = "cloudtrail-logs-policy.json"
+  acl    = "private"
+  content = jsonencode({
     Version = "2012-10-17"
     Statement = [
       {
@@ -18,9 +28,4 @@ resource "aws_s3_bucket" "cloudtrail_logs" {
       }
     ]
   })
-}
-
-
-resource "random_pet" "this" {
-  length = 2
 }
