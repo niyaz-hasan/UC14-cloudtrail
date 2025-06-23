@@ -1,3 +1,7 @@
+resource "aws_cloudwatch_log_group" "cloudtrail_logs" {
+  name = var.log_group_name
+}
+
 resource "aws_cloudwatch_log_metric_filter" "console_login_filter" {
   log_group_name = var.log_group_name
   filter_pattern = "{ $.eventName = \"ConsoleLogin\" && $.responseElements.ConsoleLogin = \"Success\" }"
