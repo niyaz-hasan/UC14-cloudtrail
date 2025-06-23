@@ -28,3 +28,7 @@ resource "aws_cloudwatch_metric_alarm" "console_login_alarm" {
   evaluation_periods  = 1
   alarm_actions       = [var.sns_topic_arn]
 }
+
+output "depends_on_cloudwatch_log_group" {
+  value = aws_cloudwatch_log_group.cloudtrail_logs
+}
