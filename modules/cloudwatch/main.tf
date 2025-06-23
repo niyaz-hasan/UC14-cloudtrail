@@ -3,8 +3,9 @@ resource "aws_cloudwatch_log_group" "cloudtrail_logs" {
 }
 
 resource "aws_cloudwatch_log_metric_filter" "console_login_filter" {
+  name           = "ConsoleLoginSuccesses"
   log_group_name = var.log_group_name
-  filter_pattern = "{ $.eventName = \"ConsoleLogin\" && $.responseElements.ConsoleLogin = \"Success\" }"
+  pattern = "{ $.eventName = \"ConsoleLogin\" && $.responseElements.ConsoleLogin = \"Success\" }"
   metric_transformation {
     name      = "ConsoleLoginSuccess"
     namespace = "Security"
