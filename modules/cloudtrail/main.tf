@@ -26,7 +26,7 @@ resource "aws_iam_role" "cloudtrail_log_role" {
   })
 }
 
-resource "aws_iam_role_policy" "cloudtrail_policy" {
+resource "aws_iam_policy" "cloudtrail_policy" {
   name = "cloudtrail-logs"
 
   policy = jsonencode({
