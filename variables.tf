@@ -15,7 +15,7 @@ variable "cloudwatch_log_group" {
 
 variable "email_recipient" {
   description = "The email address to send notifications to"
-  default     = "niyazzz1996@gmail.com"
+  default     = "niyaz.hasanmohamed@hcltech.com"
 }
 
 variable "sns_topic_name" {
