@@ -5,7 +5,7 @@ resource "aws_cloudtrail" "this" {
   s3_bucket_name                = var.s3_bucket_name
   include_global_service_events = true
   cloud_watch_logs_group_arn    = var.cloudwatch_log_group_arn
-  cloud_watch_logs_role_arn     = var.cloudtrail_log_role_arn
+  cloud_watch_logs_role_arn     = aws_iam_role.cloudtrail_log_role.arn
 }
 
 

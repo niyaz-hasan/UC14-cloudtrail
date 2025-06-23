@@ -14,7 +14,6 @@ module "cloudtrail" {
   source                = "./modules/cloudtrail"
   s3_bucket_name        = module.S3.cloudtrail_s3_bucket_arn
   cloudwatch_log_group  = var.cloudwatch_log_group
-  cloudtrail_log_role_arn = module.cloudwatch.log_role_arn
 }
 
 module "cloudwatch" {
