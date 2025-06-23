@@ -11,6 +11,10 @@ resource "aws_cloudwatch_log_metric_filter" "console_login_filter" {
     namespace = "Security"
     value     = "1"
   }
+
+  depends_on = [
+    aws_cloudwatch_log_group.cloudtrail_logs
+  ]
 }
 
 resource "aws_cloudwatch_metric_alarm" "console_login_alarm" {
