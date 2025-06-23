@@ -50,6 +50,27 @@ resource "aws_iam_policy" "cloudtrail_policy" {
   })
 }
 
+resource "aws_iam_policy" "cloudtrail_s3_policy" {
+  name = "cloudtrail-logs-policy"
+
+  policy = jsonencode({
+    Version = "2012-10-17",
+    Statement = [
+      {
+        Effect   = "Allow"
+        Action   = "s3:PutObject"
+        Resource = "*"
+      }
+    ]
+  })
+}
+
+
+resource "aws_iam_role_policy_attachment" "attach_cloudtrail_policy" {
+  role       = aws_iam_role.cloudtrail_log_role.name
+  policy_arn = aws_iam_policy.cloudtrail_s3_policy.arn
+}
+
 resource "aws_iam_role_policy_attachment" "attach_policy" {
   role       = aws_iam_role.cloudtrail_log_role.name
   policy_arn = aws_iam_policy.cloudtrail_policy.arn
