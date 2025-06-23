@@ -42,7 +42,7 @@ resource "aws_iam_policy" "cloudtrail_policy" {
           "logs:CreateLogStream",
           "logs:PutLogEvents"
         ],
-        Resource = "*"
+        Resource = "${var.cloudwatch_log_group_arn}:*"
       }
     ]
   })
